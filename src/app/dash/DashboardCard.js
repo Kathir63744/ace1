@@ -1,7 +1,7 @@
 "use client"
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
+import { Card, CardHeader, CardTitle, CardContent } from "@/app/components/ui/card"
+import { Progress } from "@/app/components/ui/progress"
 
 
 export default function DashboardCard({ title, value, subtitle, progress }) {

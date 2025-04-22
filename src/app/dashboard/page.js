@@ -19,7 +19,7 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
   SidebarSeparator
-} from "@/components/ui/sidebar"
+} from "@/app/components/ui/sidebar"
 import DashboardCard from "../dash/DashboardCard";
 
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/app/components/ui/card";
+import { Button } from "@/app/components/ui/button";
 
 export default function ActivityList({ activities = [], title, description }) {
   return (

@@ -1,8 +1,8 @@
 "use client"
 
 import { Bell, Moon, Sun } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/app/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +10,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { SidebarTrigger } from "@/components/ui/sidebar"
+} from "@/app/components/ui/dropdown-menu"
+import { SidebarTrigger } from "@/app/components/ui/sidebar"
 
 
 export default function Header({ user, darkMode, notifications, onToggleDarkMode, onLogout }) {

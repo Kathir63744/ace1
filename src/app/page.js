@@ -21,8 +21,16 @@ import SignUpForm from "./signup/page"
 import SignInForm from "./signin/page"
 import WebinarForm from "./webinarform/page"
 import { cn } from "@/lib/utils"
-
+import path from "path"
 export default function Navbar() {
+  const navLinks = [
+    { name: "About", path: "/about" },
+    { name: "Course", path: "/courses" },
+    { name: "Trainers", path: "/trainers" },
+    { name: "Event", path: "/event" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "Contact", path: "/contact" },
+  ];
   const categories = [
     "ChatGPT",
     "Data Science",
@@ -38,36 +46,33 @@ export default function Navbar() {
       name: "Saul Van Beurden",
       position: "Head of Technology, Wells Fargo",
       quote:
-        "Investing in [our internal] technology college means investing in the people, in the talent... We do that together with Talentnextgen.",
+        "Investing in [our internal] technology college means investing in the people, in the talent... We do that together with AceLevelUp.",
       image: "/ava.jpeg",
     },
     {
       name: "Winston S.",
       position: "Cloud Architect",
       quote:
-        "Talentnextgen is solely responsible for getting me from practically minimum wage to over six figures a year.",
+        "AceLevelUp is solely responsible for getting me from practically minimum wage to over six figures a year.",
       image: "/pro3.jpg",
     },
     {
       name: "Lauren Knausenberger",
       position: "Chief Transformation Officer, United States Air Force",
       quote:
-        "With Talentnextgen, our airmen have access to high-quality, up-to-date technology content and can leverage Skill IQ assessments to track progress and map out a faster path for learning.",
+        "With AceLevelUp, our airmen have access to high-quality, up-to-date technology content and can leverage Skill IQ assessments to track progress and map out a faster path for learning.",
       image: "/ava1.jpeg",
     },
   ]
   const instructors = [
     { name: "Strong Liang", title: "Engineering Manager", company: "Google", image: "/pro.jpg" },
-    { name: "Murali Sangubhatla", title: "Engineering Manager", company: "Microsoft", image: "/pro.jpg" },
-    { name: "Jameson Merkow", title: "Machine Learning", company: "Microsoft", image: "/pro.jpg" },
-    { name: "Daniel Phelps", title: "Site Reliability Engineer", company: "Meta", image: "/pro.jpg" },
   ]
   const learnerCourses = [
     {
       title: "100 Days of Code: The Complete Python Pro Bootcamp",
       instructor: "Dr. Angela Yu",
       rating: 4.7,
-      reviews: 354755,
+      reviews: "354,755",
       price: "₹549",
       originalPrice: "₹3,299",
       tags: ["Premium", "Bestseller"],
@@ -77,7 +82,7 @@ export default function Navbar() {
       title: "The Complete Full-Stack Web Development Bootcamp",
       instructor: "Dr. Angela Yu",
       rating: 4.7,
-      reviews: 426937,
+      reviews: "426,937",
       price: "₹499",
       originalPrice: "₹3,099",
       tags: ["Premium", "Bestseller"],
@@ -87,7 +92,7 @@ export default function Navbar() {
       title: "Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
       instructor: "Stephane Maarek",
       rating: 4.7,
-      reviews: 239456,
+      reviews: "239,456",
       price: "₹549",
       originalPrice: "₹3,499",
       tags: ["Premium", "Bestseller"],
@@ -99,7 +104,7 @@ export default function Navbar() {
       title: "ChatGPT Complete Guide: Learn Generative AI, ChatGPT & More",
       author: "Julian Melanson, Benza Maman",
       rating: 4.5,
-      reviews: 44652,
+      reviews: "44,652",
       price: "₹499",
       oldPrice: "₹2,699",
       bestseller: true,
@@ -109,7 +114,7 @@ export default function Navbar() {
       title: "The Complete AI-Powered Copywriting Course & ChatGPT",
       author: "Ing. Tomas Moravek",
       rating: 4.2,
-      reviews: 1759,
+      reviews: "1,759",
       price: "₹499",
       oldPrice: "₹3,099",
       bestseller: false,
@@ -119,7 +124,7 @@ export default function Navbar() {
       title: "ChatGPT, Midjourney, Gemini, DeepSeek: Marketing Tools",
       author: "Anton Voroniuk",
       rating: 4.5,
-      reviews: 494,
+      reviews: "494",
       price: "₹499",
       oldPrice: "₹799",
       bestseller: false,
@@ -129,7 +134,7 @@ export default function Navbar() {
       title: "Mastering SEO With ChatGPT: Ultimate Beginner's Guide",
       author: "Anton Voroniuk",
       rating: 4.4,
-      reviews: 255,
+      reviews: "255",
       price: "₹499",
       oldPrice: "₹799",
       bestseller: false,
@@ -142,7 +147,7 @@ export default function Navbar() {
       title: "How I got into Google India",
       img: "/video1.avif",
       videoLink:
-        "https://www.youtube.com/watch?v=NgqNA1I1IFg&pp=ygUuaG93IGkgZ290IGEgam9iIGF0IGdvb2dsZSByYWp5YSB2YXJkaGFuIG1pc2hyYQ%3D%3D", // Replace with actual video link
+        "https://www.youtube.com/watch?v=NgqNA1I1IFg&pp=ygUuaG93IGkgZ290IGEgam9iIGF0IGdvb2dsZSByYWp5YSB2YXJkaGFuIG1pc2hyYQ%3D%3D",
     },
     {
       name: "Sanjog Jadhav",
@@ -173,8 +178,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const [hoveredCourse, setHoveredCourse] = useState(null)
-
-  // Handle scroll effects
   useEffect(() => {
     const handleScroll = () => {
       setShowTimer(window.scrollY > 100)
@@ -183,21 +186,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  // Check if user is logged in
-  useEffect(() => {
-    const userData = localStorage.getItem("user")
-    if (userData) {
-      try {
-        setUser(JSON.parse(userData))
-      } catch (error) {
-        console.error("Error parsing user data:", error)
-        localStorage.removeItem("user")
-      }
-    }
-  }, [])
-
-  // Countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -210,185 +198,84 @@ export default function Navbar() {
     }, 1000)
     return () => clearInterval(timer)
   }, [])
-
-  // Testimonial rotation
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % reviews.length)
     }, 5000)
     return () => clearInterval(interval)
   }, [reviews.length])
-
   const handleLogout = useCallback(() => {
     localStorage.removeItem("user")
     setUser(null)
     router.push("/signin")
   }, [router])
-
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen((prev) => !prev)
   }, [])
-
   const formatTime = (value) => {
     return String(value).padStart(2, "0")
   }
-
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
   return (
     <div className="relative">
       {/* Navbar */}
-      <nav
-        className={cn(
-          "bg-white p-3 h-16 flex items-center fixed top-0 w-full shadow-md z-50 transition-all duration-300",
-          isScrolled && "shadow-lg h-14",
-        )}
-      >
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center  ml-14">
-            <Image src="/logoref1.png" alt="Logo" width={50} height={50} className="h-12 w-12" />
-            <h1 className="font-bold text-black text-lg ml-3">TalentNextGen</h1>
-          </div>
-
-          {/* Mobile menu button */}
-          <button className="md:hidden flex items-center" onClick={toggleMobileMenu} aria-label="Toggle menu">
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-
-          {/* Desktop navigation */}
-          <div className="hidden md:flex gap-4 items-center">
-            {user ? (
-              <div className="flex items-center space-x-4">
-                <div
-                  onClick={() => router.push("/dashboard")}
-                  className="cursor-pointer flex items-center space-x-2 hover:bg-gray-100 p-2 rounded-full transition-colors"
-                >
-                  <Image
-                    src="/ava1.jpeg"
-                    alt="User"
-                    width={30}
-                    height={30}
-                    className="rounded-full border-2 border-primary"
-                  />
-                  <span className="text-black font-semibold">{user.email}</span>
-                </div>
+      <div className="relative">
+        <nav
+          className={cn(
+            "bg-white p-3 h-16 flex items-center fixed top-0 w-full shadow-md z-50 transition-all duration-300",
+            isScrolled && "shadow-lg h-14"
+          )}
+        >
+          <div className="container mx-auto flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center ml-14">
+              <Image src="/logoref1.png" alt="Logo" width={50} height={50} className="h-12 w-12" />
+              <h1 className="font-bold text-black text-lg ml-3">AceLevelUp</h1>
+            </div>
+            {/* Mobile Menu Button */}
+            <button className="md:hidden flex items-center" onClick={toggleMobileMenu} aria-label="Toggle menu">
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-8 text-blue-950 mr-6">
+              {navLinks.map(({ name, path }) => (
                 <button
-                  onClick={handleLogout}
-                  className="relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 px-6 py-2 rounded-full text-white font-semibold shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105"
+                  key={name}
+                  onClick={() => router.push(path)}
+                  className="relative overflow-hidden text-md-400 text-gray-900 font-bold hover:text-purple-700 font-sans transition-colors"
                 >
-                  Logout
+                  {name}
                 </button>
+              ))}
+            </div>
+            {/* Mobile Navigation (Dropdown) */}
+            {mobileMenuOpen && (
+              <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg py-4 flex flex-col items-center space-y-4">
+                {navLinks.map(({ name, path }) => (
+                  <button
+                    key={name}
+                    onClick={() => {
+                      router.push(path);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="text-gray-900 font-bold hover:text-black transition-colors"
+                  >
+                    {name}
+                  </button>
+                ))}
               </div>
-            ) : (
-              <>
-                <button
-                  onClick={() => router.push("/signin")}
-                  className="relative overflow-hidden bg-white border border-primary px-6 py-2 rounded-full text-primary font-semibold shadow-sm transition-all duration-300 hover:bg-primary/10"
-                >
-                  Sign in
-                </button>
-                <button
-                  onClick={() => router.push("/signup")}
-                  className="relative overflow-hidden bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-2 rounded-full text-white font-semibold shadow-md transition-all duration-300 hover:shadow-lg hover:scale-105"
-                >
-                  Sign up
-                </button>
-              </>
             )}
           </div>
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white pt-16 pb-6 px-4 md:hidden overflow-y-auto">
-          <div className="flex flex-col space-y-4 mt-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                className={`px-4 py-2 text-left rounded-md ${
-                  activeCategory === category ? "bg-violet-600 text-white" : "bg-gray-100 text-gray-800"
-                }`}
-                onClick={() => {
-                  setActiveCategory(category)
-                  setMobileMenuOpen(false)
-                }}
-              >
-                {category}
-              </button>
-            ))}
-            <div className="border-t border-gray-200 pt-4 mt-4">
-              {user ? (
-                <>
-                  <div className="flex items-center space-x-2 mb-4">
-                    <Image src="/ava1.jpeg" alt="User" width={40} height={40} className="rounded-full" />
-                    <span className="font-medium">{user.email}</span>
-                  </div>
-                  <button onClick={handleLogout} className="w-full bg-red-500 text-white py-2 rounded-md">
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <div className="space-y-3">
-                  <button
-                    onClick={() => {
-                      router.push("/signin")
-                      setMobileMenuOpen(false)
-                    }}
-                    className="w-full bg-white border border-violet-600 text-violet-600 py-2 rounded-md"
-                  >
-                    Sign in
-                  </button>
-                  <button
-                    onClick={() => {
-                      router.push("/signup")
-                      setMobileMenuOpen(false)
-                    }}
-                    className="w-full bg-violet-600 text-white py-2 rounded-md"
-                  >
-                    Sign up
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-md flex justify-center items-center">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl flex">
-            {/* Left Side Image */}
-            <div className="hidden md:block w-1/2 p-6">
-              <Image src="/signin.png" alt="Illustration" width={300} height={300} className="w-full h-auto" />
-            </div>
-            {/* Right Side - Form */}
-            <div className="w-full md:w-1/2 p-6 relative">
-              <button
-                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 transition-colors"
-                onClick={() => setIsModalOpen(false)}
-                aria-label="Close"
-              >
-                <X size={20} />
-              </button>
-              <h2 className="text-xl font-bold text-center mb-4">{isSignUp ? "Sign Up" : "Sign In"}</h2>
-              {isSignUp ? <SignUpForm /> : <SignInForm />}
-              <p className="text-center mt-4">
-                {isSignUp ? "Already have an account?" : "Don't have an account?"}
-                <span
-                  className="text-violet-600 cursor-pointer ml-2 hover:underline"
-                  onClick={() => setIsSignUp(!isSignUp)}
-                >
-                  {isSignUp ? "Sign In" : "Sign Up"}
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
+        </nav>
+      </div>
       {/* Main Content */}
       <div className="pt-16">
-        {" "}
-        {/* Add padding to account for fixed navbar */}
         {/* Webinar Section */}
         <section className="flex flex-col lg:flex-row mt-10 items-start justify-between px-8 md:px-16 lg:px-32 py-12 bg-white gap-8">
           {/* Left Section */}
@@ -396,7 +283,7 @@ export default function Navbar() {
             <h1 className="text-4xl md:text-5xl font-bold leading-tight text-gray-900 mb-8">
               Get{" "}
               <span className="text-violet-600 relative">
-                Talent Next Gen
+                Ace Level Up
                 <span className="absolute bottom-1 left-0 w-full h-2 bg-violet-200 -z-10"></span>
               </span>{" "}
               Experience the Better Way
@@ -442,7 +329,6 @@ export default function Navbar() {
                 <WebinarForm closeModal={() => setShowModal(false)} />
               </div>
             )}
-
             <div className="text-gray-700">
               <p className="font-semibold text-lg mb-4">NEXT WEBINAR STARTS IN</p>
               <div className="flex space-x-6">
@@ -467,11 +353,11 @@ export default function Navbar() {
           </div>
           {/* Right Section */}
           <div className="flex flex-col items-start w-full lg:w-auto lg:ml-12">
-            <div className="grid grid-cols-2 gap-4 w-full">
+            <div className=" w-[450px]">
               {instructors.map((instructor, index) => (
                 <div
                   key={index}
-                  className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105"
+                  className="relative w-500 h-384 rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105"
                 >
                   <Image
                     src={instructor.image || "/placeholder.svg"}
@@ -512,9 +398,8 @@ export default function Navbar() {
           {/* Header */}
           <h1 className="text-3xl text-gray-900 font-bold">All the skills you need in one place</h1>
           <p className="text-gray-700 mt-2">
-            From critical skills to technical topics, Udemy supports your professional development.
+            From critical skills to technical topics, AceLevelUp supports your professional development.
           </p>
-
           {/* Category Tabs */}
           <div className="flex space-x-4 mt-6 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
@@ -531,7 +416,6 @@ export default function Navbar() {
               </button>
             ))}
           </div>
-
           {/* Course Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
             {courses.map((course, index) => (
@@ -561,7 +445,7 @@ export default function Navbar() {
                 <p className="text-gray-600 text-sm">{course.author}</p>
                 <div className="flex items-center text-yellow-500 mt-1">
                   <FaStar className="mr-1" /> {course.rating}
-                  <span className="text-gray-500 text-sm ml-1">({course.reviews.toLocaleString()})</span>
+                  <span className="text-gray-500 text-sm ml-1">({course.reviews})</span>
                 </div>
                 <div className="flex items-center mt-2">
                   <span className="text-lg font-bold">{course.price}</span>
@@ -609,12 +493,12 @@ export default function Navbar() {
           </div>
           {/* Right Side - Content */}
           <div className="lg:w-1/2 mt-10 lg:mt-0 lg:ml-20">
-            <h2 className="text-3xl font-bold text-gray-900">Learner outcomes on TalentNextGen</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Learner outcomes on AceLevelUp</h2>
             <p className="text-gray-700 mt-4">
               <strong className="font-bold text-black">77% of learners report career benefits</strong>, such as new
               skills, increased pay, and new job opportunities.{" "}
               <a href="#" className="text-violet-600 font-medium hover:underline">
-                2025 Talentnextgen Learner Outcomes Report
+                2025 AceLevelUp Learner Outcomes Report
               </a>
             </p>
             <button className="mt-6 bg-violet-600 text-white px-6 py-3 rounded-md font-medium hover:bg-violet-700 transition-colors flex items-center group">
@@ -628,7 +512,6 @@ export default function Navbar() {
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900">We asked our students how our program helped them</h2>
             <p className="text-gray-600 mt-2">Here's what they said</p>
-
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
               {testimonials.map((testimonial, index) => (
                 <div
@@ -662,7 +545,6 @@ export default function Navbar() {
                 </div>
               ))}
             </div>
-
             {/* Ratings Section */}
             <div className="mt-12 flex flex-wrap justify-center items-center gap-8">
               <div className="flex items-center space-x-2 bg-white p-3 rounded-lg shadow-md">
@@ -704,7 +586,6 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-
           {/* Course Carousel */}
           <h2 className="text-2xl font-bold text-gray-900">Learner is viewing</h2>
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -747,7 +628,7 @@ export default function Navbar() {
                   <p className="text-sm text-gray-600">{course.instructor}</p>
                   <div className="flex items-center mt-2 text-yellow-500">
                     <FaStar /> <span className="ml-1 font-bold">{course.rating}</span>
-                    <span className="text-gray-500 text-sm ml-2">({course.reviews.toLocaleString()})</span>
+                    <span className="text-gray-500 text-sm ml-2">({course.reviews})</span>
                   </div>
                   <div className="flex items-center mt-2">
                     <span className="font-bold text-lg text-gray-900">{course.price}</span>
@@ -954,7 +835,6 @@ export default function Navbar() {
             <Download size={18} />
             <span>Download Brochure</span>
           </button>
-
           {/* Talk to Us */}
           <button
             onClick={() => setShowCall(!showCall)}
@@ -970,7 +850,6 @@ export default function Navbar() {
               <p className="font-semibold">+1 234 567 890</p>
             </div>
           )}
-
           {/* Chat with Us */}
           <button
             onClick={() => setShowChat(!showChat)}
@@ -1020,122 +899,75 @@ export default function Navbar() {
         )}
         {/* Footer */}
         <footer className="bg-gray-900 text-white py-10 px-6">
-          <div className="max-w-7xl mx-auto">
-            {/* Top Section */}
-            <div className="border-b border-gray-700 pb-6">
-              <p className="text-center text-sm">
-                Top companies choose <span className="text-violet-400 font-semibold">TalentNextGen</span> to build
-                in-demand career skills.
-              </p>
+        <div className="max-w-7xl mx-auto">
+          <div className="border-b border-gray-700 pb-6">
+            <p className="text-center text-sm">
+              Top companies choose <span className="text-violet-400 font-semibold">AceLevelUp</span> to build
+              in-demand career skills.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 py-8">
+            <div>
+              <h3 className="font-semibold mb-3">Certifications</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">AWS</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Microsoft</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Google Cloud</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Cisco</li>
+              </ul>
             </div>
-            {/* Links Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 py-8">
-              {/* Column 1 */}
-              <div>
-                <h3 className="font-semibold mb-3">Certifications by Issuer</h3>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Amazon Web Services (AWS)</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Microsoft Certifications</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Tableau Certifications</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Cisco Certifications</li>
-                  <li className="text-gray-300 hover:text-violet-300 cursor-pointer transition-colors">
-                    See all Certifications
-                  </li>
-                </ul>
-              </div>
-              {/* Column 2 */}
-              <div>
-                <h3 className="font-semibold mb-3">Web Development</h3>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">JavaScript</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">React JS</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Angular</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Java</li>
-                </ul>
-              </div>
-              {/* Column 3 */}
-              <div>
-                <h3 className="font-semibold mb-3">IT Certifications</h3>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">
-                    AWS Certified Cloud Practitioner
-                  </li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">AZ-900: Microsoft Azure</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Kubernetes</li>
-                </ul>
-              </div>
-              {/* Column 4 */}
-              <div>
-                <h3 className="font-semibold mb-3">Data Science</h3>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Python</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Machine Learning</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">ChatGPT</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Deep Learning</li>
-                </ul>
-              </div>
-              {/* Column 5 */}
-              <div>
-                <h3 className="font-semibold mb-3">Business & Intelligence</h3>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Microsoft Excel</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">SQL</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Power BI</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Data Analysis</li>
-                </ul>
-              </div>
+            <div>
+              <h3 className="font-semibold mb-3">Development</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Web Development</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Mobile Apps</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Game Development</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Database Design</li>
+              </ul>
             </div>
-            {/* Bottom Links */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 py-6 text-sm text-gray-300">
-              <div>
-                <h3 className="font-semibold mb-3">About</h3>
-                <ul className="space-y-2">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">About Us</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Careers</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Contact Us</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Blog</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-3">Discovery Udemy</h3>
-                <ul className="space-y-2">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Get the App</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Teach on Udemy</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Affiliate</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-3">TalentNextGen for Business</h3>
-                <ul className="space-y-2">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">TalentNextGen Business</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-semibold mb-3">Legal & Accessibility</h3>
-                <ul className="space-y-2">
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Privacy Policy</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Terms</li>
-                  <li className="hover:text-violet-300 cursor-pointer transition-colors">Sitemap</li>
-                </ul>
-              </div>
+            <div>
+              <h3 className="font-semibold mb-3">Business</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Marketing</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Analytics</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Management</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Finance</li>
+              </ul>
             </div>
-            {/* Copyright */}
-            <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-              <p>© 2025 TalentNextGen, Inc.</p>
-              <div className="flex space-x-4 mt-2 md:mt-0">
-                <span className="hover:text-violet-300 cursor-pointer transition-colors">Cookie Settings</span>
-                <span className="flex items-center space-x-1">
-                  <span>🌍</span> <span>English</span>
-                </span>
-              </div>
+            <div>
+              <h3 className="font-semibold mb-3">Company</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">About Us</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Careers</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Blog</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Press</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-3">Legal</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Terms</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Privacy</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Cookies</li>
+                <li className="hover:text-violet-300 cursor-pointer transition-colors">Contact</li>
+              </ul>
             </div>
           </div>
-        </footer>
+          <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+            <p>© 2025 AceLevelUp, Inc. All rights reserved.</p>
+            <div className="flex space-x-4 mt-2 md:mt-0">
+              <span className="hover:text-violet-300 cursor-pointer transition-colors">Cookie Settings</span>
+              <span className="flex items-center space-x-1">
+                <span>🌍</span> <span>English</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
       </div>
     </div>
   )
 }
-
 function FeatureCard({ icon: Icon, title, desc }) {
   return (
     <div className="bg-white p-5 rounded-xl shadow-md flex space-x-4 items-start hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1">
@@ -1149,7 +981,6 @@ function FeatureCard({ icon: Icon, title, desc }) {
     </div>
   )
 }
-
 function ChevronRight(props) {
   return (
     <svg
@@ -1168,4 +999,3 @@ function ChevronRight(props) {
     </svg>
   )
 }
-
