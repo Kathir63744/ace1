@@ -37,8 +37,9 @@ import {
   Clock,
   Sparkles,
 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../../lib/utils"
 
+// Define course data and other constants
 const navLinks = [
   { name: "About", path: "/about" },
   { name: "Course", path: "/courses" },
@@ -216,6 +217,7 @@ const courseData = {
       ],
     },
   },
+  // Other course data remains the same...
   "digital-marketing": {
     title: "Digital Marketing",
     subtitle: "Master Digital Marketing in 10 Weeks",
@@ -1079,7 +1081,7 @@ const courseData = {
 }
 
 const courseOptions = [
-  { value: "FullStack Development", label: "website-development" },
+  { value: "website-development", label: "FullStack Development" },
   { value: "digital-marketing", label: "Digital Marketing" },
   { value: "app-development", label: "Mobile App Development" },
   { value: "scrum-master", label: "Scrum Master Certification" },
@@ -1119,6 +1121,8 @@ const features = [
     description: "Build 10+ apps for your professional portfolio",
   },
 ]
+
+// Component definitions
 const FadeInWhenVisible = ({ children, delay = 0, direction = "up", duration = 0.6 }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -1166,6 +1170,7 @@ const FadeInWhenVisible = ({ children, delay = 0, direction = "up", duration = 0
     </motion.div>
   )
 }
+
 const AccordionItem = ({ week, topic, hours, details, index }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [ref, inView] = useInView({
@@ -1183,7 +1188,7 @@ const AccordionItem = ({ week, topic, hours, details, index }) => {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex justify-between items-center w-full p-6 text-left rounded-lg transition-all duration-300",
+          "flex justify-between items-center w-full p-3 sm:p-6 text-left rounded-lg transition-all duration-300",
           isOpen
             ? "bg-indigo-50 border border-indigo-100 shadow-md"
             : "bg-white hover:bg-gray-50 border border-gray-100 hover:shadow-sm",
@@ -1193,22 +1198,22 @@ const AccordionItem = ({ week, topic, hours, details, index }) => {
       >
         <div className="flex items-center">
           <motion.div
-            className="w-12 h-12 flex items-center justify-center bg-indigo-100 rounded-full mr-4"
+            className="w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center bg-indigo-100 rounded-full mr-2 sm:mr-4"
             animate={{ rotate: isOpen ? 360 : 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="text-indigo-600 font-bold">{week}</span>
+            <span className="text-indigo-600 font-bold text-sm sm:text-base">{week}</span>
           </motion.div>
           <div>
-            <h3 className="text-lg font-semibold">{topic}</h3>
-            <p className="text-gray-600">{hours} hours</p>
+            <h3 className="text-base sm:text-lg font-semibold">{topic}</h3>
+            <p className="text-gray-600 text-sm sm:text-base">{hours} hours</p>
           </div>
         </div>
         <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
           {isOpen ? (
-            <ChevronUp className="w-5 h-5 text-indigo-600" />
+            <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
           ) : (
-            <ChevronDown className="w-5 h-5 text-indigo-600" />
+            <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
           )}
         </motion.div>
       </motion.button>
@@ -1221,8 +1226,8 @@ const AccordionItem = ({ week, topic, hours, details, index }) => {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="bg-white border border-t-0 border-gray-200 rounded-b-lg"
           >
-            <div className="p-6 pt-2">
-              <ul className="space-y-3">
+            <div className="p-3 sm:p-6 pt-2">
+              <ul className="space-y-2 sm:space-y-3">
                 {details.map((detail, i) => (
                   <motion.li
                     key={i}
@@ -1231,8 +1236,8 @@ const AccordionItem = ({ week, topic, hours, details, index }) => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.3 }}
                   >
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                    <span>{detail}</span>
+                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+                    <span className="text-sm sm:text-base">{detail}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -1243,6 +1248,7 @@ const AccordionItem = ({ week, topic, hours, details, index }) => {
     </motion.div>
   )
 }
+
 const VideoModal = ({ isOpen, onClose, videoSrc }) => {
   if (!isOpen) return null
 
@@ -1273,6 +1279,7 @@ const VideoModal = ({ isOpen, onClose, videoSrc }) => {
     </motion.div>
   )
 }
+
 const CountdownTimer = () => {
   const [timeLeft, setTimeLeft] = useState({
     days: 3,
@@ -1313,11 +1320,13 @@ const CountdownTimer = () => {
   }, [])
 
   return (
-    <div className="flex justify-center space-x-4 my-8">
+    <div className="flex justify-center space-x-2 sm:space-x-4 my-6 sm:my-8">
       {Object.entries(timeLeft).map(([unit, value]) => (
         <div key={unit} className="flex flex-col items-center">
-          <div className="bg-white w-16 h-16 md:w-20 md:h-20 rounded-lg shadow-lg flex items-center justify-center">
-            <span className="text-2xl md:text-3xl font-bold text-indigo-600">{value.toString().padStart(2, "0")}</span>
+          <div className="bg-white w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg shadow-lg flex items-center justify-center">
+            <span className="text-xl sm:text-2xl md:text-3xl font-bold text-indigo-600">
+              {value.toString().padStart(2, "0")}
+            </span>
           </div>
           <span className="text-xs md:text-sm mt-2 text-gray-600 capitalize">{unit}</span>
         </div>
@@ -1334,21 +1343,21 @@ const TestimonialCard = ({ testimonial, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.2, duration: 0.5 }}
       whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-      className="bg-white p-8 rounded-xl shadow-lg transition-all duration-300 border border-gray-100"
+      className="bg-white p-4 sm:p-8 rounded-xl shadow-lg transition-all duration-300 border border-gray-100"
     >
-      <div className="flex items-center mb-6">
+      <div className="flex items-center mb-4 sm:mb-6">
         <motion.img
           whileHover={{ scale: 1.1 }}
           src={testimonial.image}
           alt={testimonial.name}
-          className="w-16 h-16 rounded-full object-cover mr-4 border-2 border-indigo-100"
+          className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover mr-3 sm:mr-4 border-2 border-indigo-100"
         />
         <div>
-          <h4 className="text-xl font-semibold">{testimonial.name}</h4>
-          <p className="text-indigo-600">{testimonial.role}</p>
+          <h4 className="text-lg sm:text-xl font-semibold">{testimonial.name}</h4>
+          <p className="text-indigo-600 text-sm sm:text-base">{testimonial.role}</p>
         </div>
       </div>
-      <p className="text-gray-700 mb-6 italic">"{testimonial.content}"</p>
+      <p className="text-gray-700 mb-4 sm:mb-6 italic text-sm sm:text-base">"{testimonial.content}"</p>
       <div className="flex">
         {[...Array(testimonial.rating)].map((_, i) => (
           <motion.div
@@ -1357,7 +1366,7 @@ const TestimonialCard = ({ testimonial, index }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 + i * 0.1 }}
           >
-            <Star className="w-5 h-5 text-yellow-400 fill-current" />
+            <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
           </motion.div>
         ))}
       </div>
@@ -1413,32 +1422,64 @@ const MobileNav = ({ isOpen, onClose, activeSection }) => {
   )
 }
 
+// Add this function before the CourseRegistration component
+const mapCourseTypeToId = (courseType) => {
+  const mapping = {
+    "FullStack Development": "website-development",
+    "Digital Marketing": "digital-marketing",
+    "App Development": "app-development",
+    "Scrum Master": "scrum-master",
+    "Cyber Security": "ai-cybersecurity",
+    "Product Management": "product-management",
+  }
+  return mapping[courseType] || courseType
+}
+
+// Main component
 export default function CourseRegistration() {
   const router = useRouter()
-  // Use local storage to persist the selected course
-  const [selectedCourseType, setSelectedCourseType] = useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("selectedCourse")
-      return saved ? JSON.parse(saved) : "website-development"
-    }
-    return "website-development"
-  })
-
+  // Default to a safe course type to prevent errors during SSR
+  const [selectedCourseType, setSelectedCourseType] = useState("selectedCourseType")
   const [showForm, setShowForm] = useState(false)
-  // Update localStorage when course changes
+
+  // Update localStorage when course changes - safely
   const updateSelectedCourse = (courseType) => {
     setSelectedCourseType(courseType)
     if (typeof window !== "undefined") {
-      localStorage.setItem("selectedCourse", JSON.stringify(courseType))
+      try {
+        localStorage.setItem("selectedCourse", JSON.stringify(courseType))
+      } catch (error) {
+        console.error("Error saving to localStorage:", error)
+      }
     }
   }
 
-  const course = courseData[selectedCourseType] || courseData["website-development"]
+  // Safely get the course object with fallbacks to prevent the build error
+  const getCourse = (courseId) => {
+    // Always return a valid course object, defaulting to website-development if needed
+    return courseData[courseId] || courseData["website-development"]
+  }
 
+  // Get the current course with fallback
+  const course = getCourse(selectedCourseType)
+
+  // Load saved course from localStorage only on client side
   useEffect(() => {
-    const storedCourse = localStorage.getItem("selectedcourseid")
-    if (storedCourse) {
-      updateSelectedCourse(JSON.parse(storedCourse))
+    if (typeof window !== "undefined") {
+      try {
+        const storedCourse = localStorage.getItem("selectedcourseid")
+        if (storedCourse) {
+          const parsedCourse = JSON.parse(storedCourse)
+          const courseId = mapCourseTypeToId(parsedCourse)
+
+          // Verify the course exists in our data
+          if (courseData[courseId]) {
+            updateSelectedCourse(courseId)
+          }
+        }
+      } catch (error) {
+        console.error("Error loading course from localStorage:", error)
+      }
     }
   }, [])
 
@@ -1535,8 +1576,17 @@ export default function CourseRegistration() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  // Add scroll event listener to detect when to change header style
+  useEffect(() => {
+    const handleScrollForHeader = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScrollForHeader)
+    return () => window.removeEventListener("scroll", handleScrollForHeader)
+  }, [])
+
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${course.bgGradient}`}>
+    <div className={`min-h-screen bg-gradient-to-br ${course?.bgGradient || "from-blue-50 to-cyan-50"}`}>
       {/* Navigation Progress Bar */}
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-cyan-600 z-50" style={{ scaleX }} />
 
@@ -1549,18 +1599,18 @@ export default function CourseRegistration() {
           <VideoModal
             isOpen={isVideoModalOpen}
             onClose={() => setIsVideoModalOpen(false)}
-            videoSrc={course.videoBackground}
+            videoSrc={course?.videoBackground || "/full.mp4"}
           />
         )}
       </AnimatePresence>
 
       {/* Floating CTA Button with pulse effect */}
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-40">
         <motion.a
           href="#registration"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`flex items-center justify-center px-6 py-3 bg-${course.accentColor} text-white font-medium rounded-full shadow-lg shadow-${course.accentColor}/50 relative`}
+          className="flex items-center justify-center px-3 sm:px-6 py-2 sm:py-3 bg-cyan-600 text-white font-medium rounded-full shadow-lg shadow-cyan-600/50 relative text-sm sm:text-base"
         >
           <motion.span
             className="absolute inset-0 rounded-full bg-cyan-600 opacity-70"
@@ -1574,8 +1624,9 @@ export default function CourseRegistration() {
               repeatType: "loop",
             }}
           />
-          <Rocket className="w-5 h-5 mr-2" />
-          Enroll Now
+          <Rocket className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+          <span className="hidden sm:inline">Enroll Now</span>
+          <span className="inline sm:hidden">Enroll</span>
         </motion.a>
       </div>
       <div className="relative">
@@ -1627,7 +1678,7 @@ export default function CourseRegistration() {
       </div>
 
       {/* Course Selector Dropdown */}
-      <div className="fixed top-20 right-6 z-40">
+      <div className="fixed top-20 right-4 sm:right-6 z-40">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1636,10 +1687,12 @@ export default function CourseRegistration() {
         >
           <button
             onClick={() => setIsCourseSelectorOpen(!isCourseSelectorOpen)}
-            className="flex items-center justify-between w-full bg-white rounded-lg shadow-lg p-3 text-left"
+            className="flex items-center justify-between w-full bg-white rounded-lg shadow-lg p-2 sm:p-3 text-left text-sm sm:text-base"
           >
             <span className="font-medium">Explore Courses</span>
-            <ChevronDown className={`w-5 h-5 transition-transform ${isCourseSelectorOpen ? "rotate-180" : ""}`} />
+            <ChevronDown
+              className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${isCourseSelectorOpen ? "rotate-180" : ""}`}
+            />
           </button>
 
           <AnimatePresence>
@@ -1658,7 +1711,7 @@ export default function CourseRegistration() {
                       updateSelectedCourse(option.value)
                       setIsCourseSelectorOpen(false)
                     }}
-                    className={`w-full p-3 text-left ${selectedCourseType === option.value ? "bg-indigo-50 text-indigo-600" : ""}`}
+                    className={`w-full p-2 sm:p-3 text-left text-sm sm:text-base ${selectedCourseType === option.value ? "bg-indigo-50 text-indigo-600" : ""}`}
                   >
                     {option.label}
                   </motion.button>
@@ -1670,7 +1723,7 @@ export default function CourseRegistration() {
       </div>
 
       {/* Header */}
-      <header className={`sticky top-0 z-40 bg-gradient-to-r ${course.headerBg} text-white shadow-lg`}>
+      <header className="sticky top-0 z-40 bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -1678,7 +1731,7 @@ export default function CourseRegistration() {
             className="flex items-center space-x-2"
           >
             <GraduationCap className="w-8 h-8" />
-            <h1 className="text-xl font-bold">{course.title}</h1>
+            <h1 className="text-xl font-bold">{course?.title || "Course Registration"}</h1>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -1713,18 +1766,18 @@ export default function CourseRegistration() {
       </header>
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative w-full min-h-[100vh] flex items-center justify-center overflow-hidden">
         {/* Video Background with Parallax */}
         <div className="absolute inset-0 z-0">
           <motion.div style={{ y: heroParallax.y }} className="w-full h-full">
             <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-              <source src={course.videoBackground} type="video/mp4" />
+              <source src={course?.videoBackground || "/full.mp4"} type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-black opacity-60"></div>
           </motion.div>
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl px-6 py-20">
+        <div className="relative z-10 w-full max-w-7xl px-4 sm:px-6 py-12 sm:py-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1737,16 +1790,16 @@ export default function CourseRegistration() {
               transition={{ delay: 0.2 }}
               className="inline-block px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white font-medium mb-6"
             >
-              {course.subtitle}
+              {course?.subtitle || "Master Development in 12 Weeks"}
             </motion.span>
 
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight"
+              className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-white leading-tight"
             >
-              Become a {course.title.split(" ")[0]} <br />
+              Become a {course?.title?.split(" ")[0] || "Developer"} <br className="hidden sm:block" />
               <span className="text-indigo-300">in Just 12 Weeks</span>
             </motion.h1>
 
@@ -1754,31 +1807,31 @@ export default function CourseRegistration() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-xl md:text-2xl text-indigo-100 mb-10 max-w-3xl mx-auto"
+              className="text-base sm:text-xl md:text-2xl text-indigo-100 mb-6 sm:mb-10 max-w-3xl mx-auto px-4 sm:px-0"
             >
-              {course.description}
+              {course?.description || "Transform your career with our intensive, project-based program."}
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-wrap justify-center gap-4"
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-4"
             >
               <motion.a
                 href="#registration"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-white text-cyan-600 hover:bg-gray-100 rounded-lg font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-full sm:w-auto px-8 py-4 bg-white text-cyan-600 hover:bg-gray-100 rounded-lg font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl text-center"
               >
-                Enroll Now - {formatPrice(course.pricing.currentPrice)}
+                Enroll Now - {formatPrice(course?.pricing?.currentPrice || 2499)}
               </motion.a>
 
               <motion.button
                 onClick={() => setIsVideoModalOpen(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white/10 rounded-lg font-bold text-lg transition-all duration-300 flex items-center"
+                className="w-full sm:w-auto px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white/10 rounded-lg font-bold text-lg transition-all duration-300 flex items-center justify-center sm:justify-start"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Watch Demo
@@ -1787,30 +1840,30 @@ export default function CourseRegistration() {
           </motion.div>
         </div>
 
-        {/* Stats Bar */}
+        {/* Stats bar remains the same */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm py-4 border-t border-white/20"
+          className="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm py-2 sm:py-4 border-t border-white/20 overflow-x-auto"
         >
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <motion.div className="p-2" whileHover={{ y: -5 }}>
-                <div className="text-3xl font-bold text-white">500+</div>
-                <div className="text-indigo-200">Hours of Content</div>
+          <div className="container mx-auto px-2 sm:px-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-1 sm:gap-4 text-center min-w-[300px]">
+              <motion.div className="p-1 sm:p-2" whileHover={{ y: -5 }}>
+                <div className="text-xl sm:text-3xl font-bold text-white">500+</div>
+                <div className="text-xs sm:text-base text-indigo-200">Hours of Content</div>
               </motion.div>
-              <motion.div className="p-2" whileHover={{ y: -5 }}>
-                <div className="text-3xl font-bold text-white">10+</div>
-                <div className="text-indigo-200">Real Projects</div>
+              <motion.div className="p-1 sm:p-2" whileHover={{ y: -5 }}>
+                <div className="text-xl sm:text-3xl font-bold text-white">10+</div>
+                <div className="text-xs sm:text-base text-indigo-200">Real Projects</div>
               </motion.div>
-              <motion.div className="p-2" whileHover={{ y: -5 }}>
-                <div className="text-3xl font-bold text-white">94%</div>
-                <div className="text-indigo-200">Job Placement</div>
+              <motion.div className="p-1 sm:p-2" whileHover={{ y: -5 }}>
+                <div className="text-xl sm:text-3xl font-bold text-white">94%</div>
+                <div className="text-xs sm:text-base text-indigo-200">Job Placement</div>
               </motion.div>
-              <motion.div className="p-2" whileHover={{ y: -5 }}>
-                <div className="text-3xl font-bold text-white">1:1</div>
-                <div className="text-indigo-200">Mentorship</div>
+              <motion.div className="p-1 sm:p-2" whileHover={{ y: -5 }}>
+                <div className="text-xl sm:text-3xl font-bold text-white">1:1</div>
+                <div className="text-xs sm:text-base text-indigo-200">Mentorship</div>
               </motion.div>
             </div>
           </div>
@@ -1822,7 +1875,7 @@ export default function CourseRegistration() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <FadeInWhenVisible>
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Why This {course.title} Course Stands Out</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Why This {course?.title || "Course"} Stands Out</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 We've designed this program to give you everything you need to succeed in today's competitive job market
               </p>
@@ -1854,45 +1907,51 @@ export default function CourseRegistration() {
           </div>
 
           {/* Course highlights */}
-          <div className="mt-20">
+          <div className="mt-12 sm:mt-20">
             <FadeInWhenVisible>
-              <div className="bg-indigo-50 rounded-2xl p-8 md:p-12">
-                <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">What You'll Get</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-indigo-50 rounded-xl p-4 sm:p-8 md:p-12">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
+                  What You'll Get
+                </h3>
+                <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
                   <div>
-                    <ul className="space-y-6">
-                      {course.highlights.slice(0, Math.ceil(course.highlights.length / 2)).map((highlight, index) => (
-                        <motion.li
-                          key={index}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="flex items-start"
-                        >
-                          <div className="bg-white rounded-full p-1 mr-4 shadow-md">
-                            <CheckCircle className="w-6 h-6 text-green-500" />
-                          </div>
-                          <span className="text-lg">{highlight}</span>
-                        </motion.li>
-                      ))}
+                    <ul className="space-y-4 sm:space-y-6">
+                      {(course?.highlights || [])
+                        .slice(0, Math.ceil((course?.highlights || []).length / 2))
+                        .map((highlight, index) => (
+                          <motion.li
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            className="flex items-start"
+                          >
+                            <div className="bg-white rounded-full p-1 mr-3 sm:mr-4 shadow-md">
+                              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
+                            </div>
+                            <span className="text-base sm:text-lg">{highlight}</span>
+                          </motion.li>
+                        ))}
                     </ul>
                   </div>
                   <div>
-                    <ul className="space-y-6">
-                      {course.highlights.slice(Math.ceil(course.highlights.length / 2)).map((highlight, index) => (
-                        <motion.li
-                          key={index}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 + 0.2 }}
-                          className="flex items-start"
-                        >
-                          <div className="bg-white rounded-full p-1 mr-4 shadow-md">
-                            <CheckCircle className="w-6 h-6 text-green-500" />
-                          </div>
-                          <span className="text-lg">{highlight}</span>
-                        </motion.li>
-                      ))}
+                    <ul className="space-y-4 sm:space-y-6">
+                      {(course?.highlights || [])
+                        .slice(Math.ceil((course?.highlights || []).length / 2))
+                        .map((highlight, index) => (
+                          <motion.li
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 + 0.2 }}
+                            className="flex items-start"
+                          >
+                            <div className="bg-white rounded-full p-1 mr-3 sm:mr-4 shadow-md">
+                              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
+                            </div>
+                            <span className="text-base sm:text-lg">{highlight}</span>
+                          </motion.li>
+                        ))}
                     </ul>
                   </div>
                 </div>
@@ -1909,13 +1968,14 @@ export default function CourseRegistration() {
             <FadeInWhenVisible>
               <h2 className="text-4xl font-bold text-gray-900 mb-4">Comprehensive Curriculum</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our {course.schedule.length}-week program covers everything from fundamentals to advanced concepts
+                Our {course?.schedule?.length || 6}-week program covers everything from fundamentals to advanced
+                concepts
               </p>
             </FadeInWhenVisible>
           </div>
 
           <div className="space-y-4">
-            {course.schedule.map((week, index) => (
+            {(course?.schedule || []).map((week, index) => (
               <AccordionItem
                 key={index}
                 week={week.week}
@@ -1932,7 +1992,7 @@ export default function CourseRegistration() {
             <div className="mt-16 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Course Requirements</h3>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {course.requirements.map((req, index) => (
+                {(course?.requirements || []).map((req, index) => (
                   <motion.li
                     key={index}
                     initial={{ opacity: 0, x: -10 }}
@@ -1958,7 +2018,7 @@ export default function CourseRegistration() {
               <h2 className="text-4xl font-bold text-gray-900 mb-4">What You'll Achieve</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 By the end of this program, you'll have the skills and confidence to excel as a professional{" "}
-                {course.title.toLowerCase()} expert
+                {course?.title?.toLowerCase() || "developer"} expert
               </p>
             </FadeInWhenVisible>
           </div>
@@ -1971,7 +2031,7 @@ export default function CourseRegistration() {
                   Skills You'll Master
                 </h3>
                 <ul className="space-y-4">
-                  {course.skills.map((skill, index) => (
+                  {(course?.skills || []).map((skill, index) => (
                     <motion.li
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
@@ -1995,27 +2055,32 @@ export default function CourseRegistration() {
                   <Briefcase className="w-6 h-6 text-indigo-600 mr-2" />
                   Career Outcomes
                 </h3>
-                <div className="space-y-6">
-                  {course.careers.map((career, index) => (
+                <div className="space-y-4 sm:space-y-6">
+                  {(course?.careers || []).map((career, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                       whileHover={{ y: -5 }}
-                      className="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
+                      className="bg-gray-50 p-4 sm:p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
                     >
                       <div className="flex items-start">
-                        <div className="w-12 h-12 flex items-center justify-center bg-indigo-100 rounded-full mr-4 flex-shrink-0">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-indigo-100 rounded-full mr-3 sm:mr-4 flex-shrink-0">
                           {career.icon}
                         </div>
                         <div>
-                          <h4 className="text-xl font-semibold">{career.title}</h4>
-                          <p className="text-indigo-600 font-medium mb-2">{career.salary}</p>
-                          <p className="text-gray-600">{career.description}</p>
-                          <div className="mt-3 flex flex-wrap gap-2">
+                          <h4 className="text-lg sm:text-xl font-semibold">{career.title}</h4>
+                          <p className="text-indigo-600 font-medium mb-1 sm:mb-2 text-sm sm:text-base">
+                            {career.salary}
+                          </p>
+                          <p className="text-gray-600 text-sm sm:text-base">{career.description}</p>
+                          <div className="mt-2 sm:mt-3 flex flex-wrap gap-1 sm:gap-2">
                             {career.skills.map((skill, i) => (
-                              <span key={i} className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">
+                              <span
+                                key={i}
+                                className="px-2 sm:px-3 py-0.5 sm:py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs sm:text-sm"
+                              >
                                 {skill}
                               </span>
                             ))}
@@ -2044,7 +2109,7 @@ export default function CourseRegistration() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {course.testimonials.map((testimonial, index) => (
+            {(course?.testimonials || []).map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} index={index} />
             ))}
           </div>
@@ -2059,43 +2124,47 @@ export default function CourseRegistration() {
               <h2 className="text-4xl font-bold text-gray-900 mb-4">Flexible Pricing Options</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">Choose the payment plan that works best for you</p>
               <div className="mt-6 inline-block bg-indigo-50 px-4 py-2 rounded-full text-indigo-700">
-                <span className="line-through text-gray-500 mr-2">{formatPrice(course.pricing.fullPrice)}</span>
-                <span className="font-bold">{formatPrice(course.pricing.currentPrice)}</span>
+                <span className="line-through text-gray-500 mr-2">
+                  {formatPrice(course?.pricing?.fullPrice || 2999)}
+                </span>
+                <span className="font-bold">{formatPrice(course?.pricing?.currentPrice || 2499)}</span>
                 <span className="ml-2 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
-                  SAVE {formatPrice(course.pricing.fullPrice - course.pricing.currentPrice)}
+                  SAVE {formatPrice((course?.pricing?.fullPrice || 2999) - (course?.pricing?.currentPrice || 2499))}
                 </span>
               </div>
             </FadeInWhenVisible>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {course.pricing.paymentPlans.map((plan, index) => (
+          <div className="grid grid-cols-1 gap-4 sm:gap-8 md:grid-cols-3">
+            {(course?.pricing?.paymentPlans || []).map((plan, index) => (
               <FadeInWhenVisible key={index} delay={index * 0.1}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   onClick={() => setSelectedPlan(index)}
                   className={cn(
-                    "p-8 rounded-xl border-2 cursor-pointer transition-all duration-300",
+                    "p-4 sm:p-8 rounded-xl border-2 cursor-pointer transition-all duration-300",
                     selectedPlan === index
                       ? "border-cyan-600 bg-indigo-50 shadow-lg"
                       : "border-gray-200 hover:border-indigo-300",
                   )}
                 >
-                  <h3 className="text-2xl font-semibold mb-4">{plan.name}</h3>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold">
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">{plan.name}</h3>
+                  <div className="mb-4 sm:mb-6">
+                    <span className="text-3xl sm:text-4xl font-bold">
                       {formatPrice(plan.price)}
-                      {plan.name !== "Pay in Full" && <span className="text-lg text-gray-500">/mo</span>}
+                      {plan.name !== "Pay in Full" && <span className="text-base sm:text-lg text-gray-500">/mo</span>}
                     </span>
                     {plan.savings && (
-                      <p className="text-green-600 mt-1 flex items-center">
-                        <Heart className="w-4 h-4 mr-1" />
+                      <p className="text-green-600 mt-1 flex items-center text-sm sm:text-base">
+                        <Heart className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         Save {formatPrice(plan.savings)}
                       </p>
                     )}
-                    {plan.total && <p className="text-gray-500 text-sm mt-1">Total: {formatPrice(plan.total)}</p>}
+                    {plan.total && (
+                      <p className="text-gray-500 text-xs sm:text-sm mt-1">Total: {formatPrice(plan.total)}</p>
+                    )}
                   </div>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                     {plan.perks.map((perk, i) => (
                       <motion.li
                         key={i}
@@ -2106,11 +2175,11 @@ export default function CourseRegistration() {
                       >
                         <CheckCircle
                           className={cn(
-                            "w-5 h-5 mt-0.5 mr-2 flex-shrink-0",
+                            "w-4 h-4 sm:w-5 sm:h-5 mt-0.5 mr-2 flex-shrink-0",
                             selectedPlan === index ? "text-cyan-600" : "text-gray-400",
                           )}
                         />
-                        <span>{perk}</span>
+                        <span className="text-sm sm:text-base">{perk}</span>
                       </motion.li>
                     ))}
                   </ul>
@@ -2118,7 +2187,7 @@ export default function CourseRegistration() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     className={cn(
-                      "w-full py-3 px-6 rounded-lg font-medium transition-colors",
+                      "w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg font-medium transition-colors text-sm sm:text-base",
                       selectedPlan === index
                         ? "bg-cyan-600 text-white hover:bg-cyan-700"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200",
@@ -2230,8 +2299,8 @@ export default function CourseRegistration() {
                     <p className="text-lg">Our admissions team will contact you within 24 hours with next steps.</p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                           Full Name *
@@ -2244,7 +2313,7 @@ export default function CourseRegistration() {
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-4 py-3 border"
+                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-3 sm:px-4 py-2 sm:py-3 border text-sm sm:text-base"
                           placeholder="John Doe"
                         />
                       </div>
@@ -2261,13 +2330,13 @@ export default function CourseRegistration() {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-4 py-3 border"
+                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-3 sm:px-4 py-2 sm:py-3 border text-sm sm:text-base"
                           placeholder="john@example.com"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
                       <div>
                         <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">
                           Mobile Number *
@@ -2280,7 +2349,7 @@ export default function CourseRegistration() {
                           required
                           value={formData.mobile}
                           onChange={handleChange}
-                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-4 py-3 border"
+                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-3 sm:px-4 py-2 sm:py-3 border text-sm sm:text-base"
                           placeholder="+1 (555) 000-0000"
                         />
                       </div>
@@ -2296,7 +2365,7 @@ export default function CourseRegistration() {
                           required
                           value={formData.course}
                           onChange={handleChange}
-                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-4 py-3 border"
+                          className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-3 sm:px-4 py-2 sm:py-3 border text-sm sm:text-base"
                         >
                           {courseOptions.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -2318,7 +2387,7 @@ export default function CourseRegistration() {
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-4 py-3 border"
+                        className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 px-3 sm:px-4 py-2 sm:py-3 border text-sm sm:text-base"
                         placeholder="What do you hope to achieve with this course? Any specific areas you want to focus on?"
                       />
                     </div>
@@ -2370,7 +2439,8 @@ export default function CourseRegistration() {
                       </div>
                       <div>
                         <span className="font-medium">Early Bird Discount:</span> Save{" "}
-                        {formatPrice(course.pricing.fullPrice - course.pricing.currentPrice)} when you enroll today
+                        {formatPrice((course?.pricing?.fullPrice || 2999) - (course?.pricing?.currentPrice || 2499))}{" "}
+                        when you enroll today
                       </div>
                     </motion.li>
                     <motion.li className="flex items-start" whileHover={{ x: 5 }}>
@@ -2441,7 +2511,40 @@ export default function CourseRegistration() {
       </section>
 
       {/* Final CTA */}
-      <section className={`py-16 bg-gradient-to-r ${course.headerBg} text-white`}>
+      <section className="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
+              Ready to Launch Your New Career?
+            </h2>
+            <p className="text-lg sm:text-xl max-w-3xl mx-auto mb-6 sm:mb-8">
+              Join thousands of students who transformed their lives with our program
+            </p>
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
+              <motion.a
+                href="#registration"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white text-cyan-600 hover:bg-gray-100 rounded-lg font-bold text-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+              >
+                Enroll Now
+              </motion.a>
+              <motion.a
+                href="#"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white hover:bg-white/10 rounded-lg font-bold text-lg transition-colors duration-300 flex items-center justify-center sm:justify-start"
+              >
+                <MessageSquare className="w-5 h-5 mr-2" />
+                Chat With Advisor
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Launch Your New Career?</h2>
@@ -2564,4 +2667,3 @@ export default function CourseRegistration() {
     </div>
   )
 }
-

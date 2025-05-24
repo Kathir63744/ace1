@@ -1,11 +1,6 @@
 "use client"
-
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/app/components/ui/card"
 import { Button } from "@/app/components/ui/button"
-
-
-
-
 export default function WebinarList({ webinars }) {
   return (
     <Card>

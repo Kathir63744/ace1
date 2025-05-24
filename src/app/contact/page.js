@@ -1,8 +1,7 @@
 "use client"
 import React, { useCallback, useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail, MapPin, Clock, Send, CheckCircle, GraduationCap, Users, Award, BookOpen } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { cn } from '../../lib/utils';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -142,6 +141,7 @@ function ContactPage() {
       color: "bg-violet-50",
     },
   ];
+  
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-violet-50 via-white to-violet-50">
       {/* Header */}
@@ -155,10 +155,10 @@ function ContactPage() {
           <div className="container mx-auto flex items-center justify-between">
             {/* Logo */}
            <Link href="/" className="flex items-center">
-                        <h1 className="font-bold text-black text-lg ml-3">AceLevelUp</h1>
-                      </Link>
+              <h1 className="font-bold text-black text-lg ml-3">AceLevelUp</h1>
+           </Link>
             {/* Mobile Menu Button */}
-            <button className="md:hidden flex items-center" onClick={toggleMobileMenu} aria-label="Toggle menu">
+            <button className="md:hidden flex items-center mr-4" onClick={toggleMobileMenu} aria-label="Toggle menu">
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
             {/* Desktop Navigation */}
@@ -193,21 +193,23 @@ function ContactPage() {
           </div>
         </nav>
       </div>
+      
       {/* Main Content */}
       <main className="flex-grow pt-16">
         {/* Hero Section with Animated Background */}
-        <section className="relative bg-gradient-to-b from-violet-100 to-white py-24 px-4 overflow-hidden">
+        <section className="relative bg-gradient-to-b from-violet-100 to-white py-16 sm:py-24 px-4 overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-5"></div>
           <div className="container mx-auto text-center relative z-10">
-            <h1 className="text-5xl md:text-6xl font-bold text-violet-900 mb-6 animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-violet-900 mb-6 animate-fade-in">
               Get in Touch
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Have questions about our courses? Ready to start your learning journey?
               Our team is here to guide you every step of the way.
             </p>
           </div>
         </section>
+        
         {/* Contact Info Cards with Enhanced Design */}
         <section className="py-16 px-4 bg-gradient-to-r from-violet-50 via-white to-violet-50">
           <div className="container mx-auto">
@@ -218,10 +220,10 @@ function ContactPage() {
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className={`${info.color} rounded-2xl p-8 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl`}
+                  className={`${info.color} rounded-2xl p-6 sm:p-8 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl`}
                 >
                   <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
-                    <info.icon className="h-8 w-8 text-violet-600" />
+                    <info.icon className="h-8 w-8 text-purple-500" />
                   </div>
                   <h3 className="text-xl font-semibold text-violet-900 mb-4 text-center">{info.title}</h3>
                   {info.details.map((detail, idx) => (
@@ -232,12 +234,13 @@ function ContactPage() {
             </div>
           </div>
         </section>
+        
         {/* Contact Form and Map Section with Enhanced Design */}
         <section className="py-16 px-4 bg-white">
           <div className="container mx-auto">
-            <div className="bg-gradient-to-br from-violet-50 to-white rounded-3xl shadow-2xl p-8 md:p-12 grid md:grid-cols-2 gap-12">
+            <div className="bg-gradient-to-br from-violet-50 to-white rounded-3xl shadow-2xl p-6 md:p-12 grid md:grid-cols-2 gap-12">
               {/* Form Section */}
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
                 <h2 className="text-3xl font-bold text-violet-900 mb-8">Send us a Message</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
@@ -345,8 +348,9 @@ function ContactPage() {
                   )}
                 </form>
               </div>
+              
               {/* Map Section with Enhanced Design */}
-              <div className="rounded-2xl overflow-hidden shadow-2xl h-[700px] relative">
+              <div className="rounded-2xl overflow-hidden shadow-2xl h-[500px] md:h-[700px] relative">
                 <div className="absolute inset-0 bg-violet-100 opacity-20"></div>
                 <iframe
                   className="w-full h-full relative z-10"
@@ -361,6 +365,7 @@ function ContactPage() {
           </div>
         </section>
       </main>
+      
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-10 px-6">
         <div className="max-w-7xl mx-auto">
@@ -431,4 +436,5 @@ function ContactPage() {
     </div>
   );
 }
+
 export default ContactPage;

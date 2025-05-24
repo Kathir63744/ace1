@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { Calendar, MapPin, Clock, Users, ChevronRight, ArrowRight, Search, Menu, X } from "lucide-react"
+import { Calendar, MapPin, Clock, Users, ChevronRight, ArrowRight, Menu, X } from "lucide-react"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 export default function EventPage() {
   const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -178,7 +178,7 @@ export default function EventPage() {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="text-4xl md:text-6xl font-extrabold text-blue-900 mb-6 leading-tight">
-              Upcoming <span className="text-purple-600">Events</span> 
+              Upcoming <span className="text-purple-600">Events</span>
             </h1>
             <p className="text-xl text-purple-700 mb-10 max-w-3xl mx-auto">
               Join our interactive sessions led by industry experts and enhance your skills through hands-on learning
@@ -367,8 +367,8 @@ export default function EventPage() {
         <div className="max-w-7xl mx-auto">
           <div className="border-b border-gray-700 pb-6">
             <p className="text-center text-sm">
-              Top companies choose <span className="text-violet-400 font-semibold">AceLevelUp</span> to build
-              in-demand career skills.
+              Top companies choose <span className="text-violet-400 font-semibold">AceLevelUp</span> to build in-demand
+              career skills.
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 py-8">

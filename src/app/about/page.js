@@ -1,43 +1,20 @@
 "use client"
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Award,
-  BookOpen,
-  Users,
-  Target,
-  Calendar,
-  MessageSquare,
-  Star,
-  TrendingUp,
-  CheckCircle,
-  Coffee,
-  Briefcase,
-  GraduationCap,
-  Code,
-  LineChart,
-  Brain,
-  Laptop,
-  UserPlus,
-  Rocket,
-  X,
-  Menu,
-  ChevronDown,
-  ChevronUp,
-  Globe,
-  Heart,
-  MapPin,
-  Lightbulb,
-  Share2,
-} from 'lucide-react';
+import { Award, BookOpen, Users, Target, Calendar, MessageSquare, Star, TrendingUp, CheckCircle, Coffee, Briefcase, GraduationCap, Code, LineChart, Brain, Laptop, UserPlus, Rocket, X, Menu, ChevronDown, ChevronUp, Globe, Heart, MapPin, Lightbulb, Share2 } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '../../lib/utils';
+
 function App() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeFaq, setActiveFaq] = useState(false); 
+  const [activeFaq, setActiveFaq] = useState(null); 
+  
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen((prev) => !prev);
   }, []);
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -45,6 +22,7 @@ function App() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  
   const navLinks = [
     { name: "About", path: "/about" },
     { name: "Course", path: "/courses" },
@@ -53,6 +31,7 @@ function App() {
     { name: "Pricing", path: "/pricing" },
     { name: "Contact", path: "/contact" },
   ];
+  
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -73,12 +52,14 @@ function App() {
       content: "The digital marketing course provided real-world applications that I could implement immediately."
     }
   ];
+  
   const stats = [
     { icon: Users, label: "Active Students", value: "10,000+" },
     { icon: BookOpen, label: "Courses", value: "150+" },
     { icon: Award, label: "Certifications", value: "50+" },
     { icon: Target, label: "Success Rate", value: "95%" }
   ];
+  
   const careerPaths = [
     {
       title: "Technology",
@@ -96,6 +77,7 @@ function App() {
       roles: ["Digital Marketer", "UX Designer", "Content Strategist", "SEO Specialist"]
     }
   ];
+  
   const teamMembers = [
     {
       name: "Dr. Alexandra Chen",
@@ -122,6 +104,7 @@ function App() {
       bio: "Corporate recruiter turned educator, David bridges the gap between education and employment opportunities."
     }
   ];
+  
   const historyTimeline = [
     {
       year: "2015",
@@ -154,7 +137,7 @@ function App() {
     { name: "TechGiant", logo: "/Samsung.png" },
     { name: "InnovateNow", logo: "/visa.png" },
     { name: "FutureWorks", logo: "/vk.png" },
-    { name: "GlobalSoft", logo: " /google-2015-logo-3649.png" },
+    { name: "GlobalSoft", logo: "/google-2015-logo-3649.png" },
     { name: "DataSphere", logo: "/P_G_.png" },
     { name: "CloudPeak", logo: "/Cipla_logo.svg.png" }
   ];
@@ -181,6 +164,7 @@ function App() {
       answer: "Absolutely. Our certifications are developed in partnership with industry leaders and are widely recognized by employers across the technology and business sectors."
     }
   ];
+  
   const values = [
     {
       icon: Lightbulb,
@@ -203,58 +187,63 @@ function App() {
       description: "Quality education should be accessible to motivated learners regardless of background."
     }
   ];
+  
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Navigation */}
       <nav
-        className={`bg-white p-3 h-16 flex items-center fixed top-0 w-full shadow-md z-50 transition-all duration-300 ${
+        className={cn(
+          "bg-white p-3 h-16 flex items-center fixed top-0 w-full shadow-md z-50 transition-all duration-300",
           isScrolled ? "shadow-lg h-14" : ""
-        }`}
+        )}
       >
-        <div className="container mx-auto flex items-center justify-between">
-          <a href="/" className="flex items-center">
-            <img
-              src="/logoref1.png"
-              alt="Logo"
-              className="h-12 w-12 ml-12"
-            />
-            <h1 className="font-bold text-black text-lg ml-4">AceLevelUp</h1>
-          </a>
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <h1 className="font-bold text-black text-lg sm:ml-12">AceLevelUp</h1>
+          </Link>
+          
           {/* Mobile Menu Button */}
-          <button className="md:hidden flex items-center" onClick={toggleMobileMenu} aria-label="Toggle menu">
+          <button 
+            className="md:hidden flex items-center" 
+            onClick={toggleMobileMenu} 
+            aria-label="Toggle menu"
+          >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 text-blue-950 mr-6">
+          <div className="hidden md:flex space-x-8 text-blue-950">
             {navLinks.map(({ name, path }) => (
-              <a
+              <Link
                 key={name}
                 href={path}
                 className="relative overflow-hidden text-md-400 text-gray-900 font-bold hover:text-purple-700 font-sans transition-colors"
               >
                 {name}
-              </a>
+              </Link>
             ))}
           </div>
+          
           {/* Mobile Navigation (Dropdown) */}
           {mobileMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg py-4 flex flex-col items-center space-y-4">
+            <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg py-4 flex flex-col items-center space-y-4 z-50">
               {navLinks.map(({ name, path }) => (
-                <a
+                <Link
                   key={name}
                   href={path}
-                  className="text-gray-900 font-bold hover:text-black transition-colors"
+                  className="text-gray-900 font-bold hover:text-black transition-colors w-full text-center py-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {name}
-                </a>
+                </Link>
               ))}
             </div>
           )}
         </div>
       </nav>
+      
       {/* Hero Section */}
-      <section className="pt-16 mt-5 relative w-full h-[500px] bg-cover bg-center bg-no-repeat flex items-center">
+      <section className="pt-16 mt-5 relative w-full h-[500px] md:h-[600px] bg-cover bg-center bg-no-repeat flex items-center">
         <div 
           className="absolute inset-0 bg-black/60" 
           style={{ 
@@ -265,34 +254,35 @@ function App() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-violet-900/80 to-indigo-900/80"></div>
         </div>
-        <div className="relative z-10 container mx-auto px-8">
+        <div className="relative z-10 container mx-auto px-4 sm:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
               Transform Your Future with
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400 block mt-2">
                 AceLevelUp
               </span>
             </h1>
-            <p className="text-xl text-gray-200 max-w-2xl mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mb-6 sm:mb-8 leading-relaxed">
               Together, our team of enthusiastic teachers, subject-matter specialists, and tech innovators creates a smooth, engaging, and successful learning environment. 
             </p>
-            <div className="flex gap-4">
-              <button className="px-8 py-4 bg-violet-600 text-white font-bold text-lg rounded-lg hover:bg-violet-700 transition-colors duration-300">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <button className="px-4 sm:px-6 py-2 sm:py-3 bg-violet-600 text-white font-bold text-base sm:text-lg rounded-lg hover:bg-violet-700 transition-colors duration-300">
                 Explore Courses
               </button>
-              <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold text-lg rounded-lg hover:bg-white/10 transition-colors duration-300">
+              <button className="px-4 sm:px-6 py-2 sm:py-3 bg-transparent border-2 border-white text-white font-bold text-base sm:text-lg rounded-lg hover:bg-white/10 transition-colors duration-300">
                 Learn More
               </button>
             </div>
           </motion.div>
         </div>
       </section>
+      
       {/* Mission Statement Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -301,22 +291,23 @@ function App() {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl font-bold text-gray-900 mb-8">Our Mission</h2>
-              <div className="h-1 w-20 bg-violet-600 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              At Ace Level Up, we think that the cornerstone of opportunity is education. In order to make learning accessible and interesting for everyone, our platform provides a vast array of courses, tutorials, and interactive content, whether you're studying for tests, learning new skills, or looking for professional advice. 
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">Our Mission</h2>
+              <div className="h-1 w-20 bg-violet-600 mx-auto mb-6 sm:mb-8"></div>
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed mb-6 sm:mb-8">
+                At Ace Level Up, we think that the cornerstone of opportunity is education. In order to make learning accessible and interesting for everyone, our platform provides a vast array of courses, tutorials, and interactive content, whether you're studying for tests, learning new skills, or looking for professional advice. 
               </p>
-              <p className="text-xl text-gray-700 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed">
                 Through innovative teaching methods, cutting-edge curriculum, and personalized support, we empower individuals to reach their full potential and make meaningful contributions to their fields.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
+      
       {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-12 sm:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -324,23 +315,24 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-lg"
+                className="flex flex-col items-center p-4 sm:p-6 bg-white rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
               >
-                <stat.icon className="w-12 h-12 text-violet-600 mb-4" />
-                <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
-                <p className="text-gray-600">{stat.label}</p>
+                <stat.icon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-violet-600 mb-2 sm:mb-4" />
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{stat.value}</h3>
+                <p className="text-xs sm:text-sm md:text-base text-gray-600 text-center">{stat.label}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+      
       {/* Values Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Our Core Values
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {values.map((value, index) => (
               <motion.div
                 key={index}
@@ -348,116 +340,118 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 p-8 rounded-2xl shadow-lg text-center"
+                className="bg-gray-50 p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center"
               >
-                <div className="bg-violet-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <value.icon className="w-8 h-8 text-violet-600" />
+                <div className="bg-violet-100 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                  <value.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-violet-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <h3 className="text-lg sm:text-xl md:text-xl font-bold text-gray-900 mb-2 sm:mb-4">{value.title}</h3>
+                <p className="text-xs sm:text-sm md:text-base text-gray-600">{value.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+      
       {/* Student Success Path Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Your Path to Success
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             <motion.div
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
             >
-              <div className="flex items-center mb-6">
-                <GraduationCap className="w-12 h-12 text-violet-600 mr-4" />
-                <h3 className="text-2xl font-bold">For Students</h3>
+              <div className="flex items-center mb-4 sm:mb-6">
+                <GraduationCap className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-violet-600 mr-2 sm:mr-4" />
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold">For Students</h3>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-2 sm:space-y-3 md:space-y-4">
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Structured learning paths aligned with industry demands</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Structured learning paths aligned with industry demands</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Internship opportunities with leading companies</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Internship opportunities with leading companies</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Career counseling and resume building workshops</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Career counseling and resume building workshops</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Industry-recognized certifications</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Industry-recognized certifications</span>
                 </li>
               </ul>
             </motion.div>
             <motion.div
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
             >
-              <div className="flex items-center mb-6">
-                <Briefcase className="w-12 h-12 text-violet-600 mr-4" />
-                <h3 className="text-2xl font-bold">For Professionals</h3>
+              <div className="flex items-center mb-4 sm:mb-6">
+                <Briefcase className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-violet-600 mr-2 sm:mr-4" />
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold">For Professionals</h3>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-2 sm:space-y-3 md:space-y-4">
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Advanced technical training and upskilling</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Advanced technical training and upskilling</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Leadership and management development</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Leadership and management development</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Flexible learning schedules for working professionals</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Flexible learning schedules for working professionals</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Industry networking opportunities</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Industry networking opportunities</span>
                 </li>
               </ul>
             </motion.div>
             <motion.div
               whileHover={{ y: -5 }}
-              className="bg-white p-8 rounded-2xl shadow-lg"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
             >
-              <div className="flex items-center mb-6">
-                <Code className="w-12 h-12 text-violet-600 mr-4" />
-                <h3 className="text-2xl font-bold">For IT Experts</h3>
+              <div className="flex items-center mb-4 sm:mb-6">
+                <Code className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-violet-600 mr-2 sm:mr-4" />
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold">For IT Experts</h3>
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-2 sm:space-y-3 md:space-y-4">
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Cutting-edge technology workshops</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Cutting-edge technology workshops</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Cloud certification programs</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Cloud certification programs</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>Advanced programming courses</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">Advanced programming courses</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span>DevOps and architecture training</span>
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-green-500 mr-1 sm:mr-2 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm md:text-base">DevOps and architecture training</span>
                 </li>
               </ul>
             </motion.div>
           </div>
         </div>
       </section>
+      
       {/* Team Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Meet Our Leadership Team
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
@@ -466,32 +460,32 @@ function App() {
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
-                className="bg-gray-50 rounded-2xl shadow-lg overflow-hidden"
+                className="bg-gray-50 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg overflow-hidden"
               >
-                <div className="h-64 relative">
+                <div className="h-48 sm:h-56 md:h-64 relative">
                   <img
-                    src={member.image}
+                    src={member.image || "/placeholder.svg"}
                     alt={member.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-                  <p className="text-violet-600 font-medium mb-4">{member.role}</p>
-                  <p className="text-gray-600 text-sm">{member.bio}</p>
-                  <div className="flex mt-4 space-x-3">
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900">{member.name}</h3>
+                  <p className="text-violet-600 font-medium mb-2 sm:mb-4 text-sm sm:text-base">{member.role}</p>
+                  <p className="text-gray-600 text-xs sm:text-sm">{member.bio}</p>
+                  <div className="flex mt-3 sm:mt-4 space-x-2 sm:space-x-3">
                     <a href="#" className="text-gray-500 hover:text-violet-600">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                       </svg>
                     </a>
                     <a href="#" className="text-gray-500 hover:text-violet-600">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                       </svg>
                     </a>
                     <a href="#" className="text-gray-500 hover:text-violet-600">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                       </svg>
                     </a>
@@ -502,26 +496,27 @@ function App() {
           </div>
         </div>
       </section>
+      
       {/* Career Paths Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Career Paths
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {careerPaths.map((path, index) => (
               <motion.div
                 key={index}
                 whileHover={{ y: -5 }}
-                className="bg-white p-8 rounded-2xl shadow-lg"
+                className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
               >
-                <path.icon className="w-12 h-12 text-violet-600 mb-6" />
-                <h3 className="text-2xl font-bold mb-4">{path.title}</h3>
-                <ul className="space-y-3">
+                <path.icon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-violet-600 mb-4 sm:mb-6" />
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-4">{path.title}</h3>
+                <ul className="space-y-2 sm:space-y-3">
                   {path.roles.map((role, roleIndex) => (
                     <li key={roleIndex} className="flex items-center">
-                      <Target className="w-5 h-5 text-violet-600 mr-2" />
-                      <span>{role}</span>
+                      <Target className="w-4 h-4 sm:w-5 sm:h-5 text-violet-600 mr-1 sm:mr-2" />
+                      <span className="text-xs sm:text-sm md:text-base">{role}</span>
                     </li>
                   ))}
                 </ul>
@@ -530,10 +525,11 @@ function App() {
           </div>
         </div>
       </section>
+      
       {/* Company History Timeline */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Our Journey
           </h2>
           <div className="max-w-4xl mx-auto">
@@ -544,33 +540,34 @@ function App() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
-                className="flex mb-8 items-center"
+                className="flex flex-col md:flex-row mb-6 sm:mb-8 items-center"
               >
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'order-last pl-8'}`}>
-                  <h3 className="text-xl font-bold text-gray-900">{item.title}</h3>
-                  <p className="text-gray-600 mt-2">{item.description}</p>
+                <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-4 md:text-right' : 'md:order-last md:pl-4'} mb-3 sm:mb-4 md:mb-0`}>
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900">{item.title}</h3>
+                  <p className="text-gray-600 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base">{item.description}</p>
                 </div>
                 <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center text-white font-bold">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-violet-600 flex items-center justify-center text-white font-bold text-sm sm:text-base">
                     {item.year.slice(-2)}
                   </div>
                   <div className="h-full w-0.5 bg-violet-600"></div>
                 </div>
-                <div className={`w-1/2 ${index % 2 === 0 ? 'order-last pl-8' : 'pr-8 text-right'}`}>
-                  <h3 className="text-2xl font-bold text-violet-600">{item.year}</h3>
+                <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:order-last md:pl-4' : 'md:pr-4 md:text-right'} mt-3 sm:mt-4 md:mt-0`}>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-violet-600">{item.year}</h3>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+      
       {/* Learning Process Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Our Learning Process
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             <ProcessCard
               icon={Brain}
               step="1"
@@ -598,13 +595,14 @@ function App() {
           </div>
         </div>
       </section>
+      
       {/* Partners & Clients Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Our Partners & Clients
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8 items-center">
             {partners.map((partner, index) => (
               <motion.div
                 key={index}
@@ -612,71 +610,73 @@ function App() {
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="flex items-center justify-center p-4"
+                className="flex items-center justify-center p-2 sm:p-4"
               >
                 <img
-                  src={partner.logo}
+                  src={partner.logo || "/placeholder.svg"}
                   alt={partner.name}
-                  className="max-h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+                  className="max-h-8 sm:max-h-12 md:max-h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300"
                 />
               </motion.div>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <p className="text-gray-600 max-w-2xl mx-auto">
+          <div className="text-center mt-8 sm:mt-12">
+            <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
               We collaborate with leading organizations to ensure our curriculum meets industry standards and our graduates are prepared for the demands of the modern workplace.
             </p>
           </div>
         </div>
       </section>
+      
       {/* Features Grid */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             What Sets Us Apart
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             <FeatureCard
-              icon={<Calendar className="w-8 h-8 text-violet-600" />}
+              icon={<Calendar className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-violet-600" />}
               title="Flexible Schedule"
               description="Learn at your own pace with 24/7 access to course materials"
             />
             <FeatureCard
-              icon={<MessageSquare className="w-8 h-8 text-violet-600" />}
+              icon={<MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-violet-600" />}
               title="Expert Support"
               description="Get personalized guidance from industry professionals"
             />
             <FeatureCard
-              icon={<Star className="w-8 h-8 text-violet-600" />}
+              icon={<Star className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-violet-600" />}
               title="Quality Content"
               description="Updated curriculum aligned with industry standards"
             />
             <FeatureCard
-              icon={<TrendingUp className="w-8 h-8 text-violet-600" />}
+              icon={<TrendingUp className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-violet-600" />}
               title="Career Growth"
               description="Access to job placement assistance and career counseling"
             />
             <FeatureCard
-              icon={<CheckCircle className="w-8 h-8 text-violet-600" />}
+              icon={<CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-violet-600" />}
               title="Certified Programs"
               description="Industry-recognized certifications to boost your resume"
             />
             <FeatureCard
-              icon={<Coffee className="w-8 h-8 text-violet-600" />}
+              icon={<Coffee className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-violet-600" />}
               title="Community"
               description="Join a network of professionals and like-minded learners"
             />
           </div>
         </div>
       </section>
+      
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Student Success Stories
           </h2>
           <div className="max-w-4xl mx-auto">
-            <div className="relative h-[250px]">
+            <div className="relative h-[300px] sm:h-[250px]">
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={index}
@@ -690,29 +690,29 @@ function App() {
                     activeTestimonial === index ? "block" : "hidden"
                   }`}
                 >
-                  <div className="bg-gray-50 p-8 rounded-2xl shadow-lg">
-                    <div className="flex items-center mb-6">
+                  <div className="bg-gray-50 p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center mb-4 sm:mb-6">
                       <img
-                        src={testimonial.image}
+                        src={testimonial.image || "/placeholder.svg"}
                         alt={testimonial.name}
-                        className="w-16 h-16 rounded-full"
+                        className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full mx-auto sm:mx-0 mb-3 sm:mb-0"
                       />
-                      <div className="ml-4">
-                        <h3 className="text-xl font-semibold">{testimonial.name}</h3>
-                        <p className="text-gray-600">{testimonial.role}</p>
+                      <div className="sm:ml-4 text-center sm:text-left mt-3 sm:mt-0">
+                        <h3 className="text-lg sm:text-xl font-semibold">{testimonial.name}</h3>
+                        <p className="text-gray-600 text-sm sm:text-base">{testimonial.role}</p>
                       </div>
                     </div>
-                    <p className="text-lg text-gray-700">{testimonial.content}</p>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-700">{testimonial.content}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
-            <div className="flex justify-center mt-8 gap-2">
+            <div className="flex justify-center mt-6 sm:mt-8 gap-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
-                  className={`w-3 h-3 rounded-full ${
+                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${
                     activeTestimonial === index ? "bg-violet-600" : "bg-gray-300"
                   }`}
                 />
@@ -721,10 +721,11 @@ function App() {
           </div>
         </div>
       </section>
+      
       {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Frequently Asked Questions
           </h2>
           <div className="max-w-3xl mx-auto">
@@ -735,17 +736,17 @@ function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="mb-4"
+                className="mb-3 sm:mb-4"
               >
                 <button
                   onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="flex justify-between items-center w-full p-5 bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"
+                  className="flex justify-between items-center w-full p-3 sm:p-4 md:p-5 bg-white rounded-lg shadow-md hover:bg-gray-50 transition-colors"
                 >
-                  <span className="text-lg font-medium text-gray-900">{faq.question}</span>
+                  <span className="text-sm sm:text-base md:text-lg font-medium text-gray-900 text-left">{faq.question}</span>
                   {activeFaq === index ? (
-                    <ChevronUp className="w-5 h-5 text-violet-600" />
+                    <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-violet-600" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-violet-600" />
+                    <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-violet-600" />
                   )}
                 </button>
                 {activeFaq === index && (
@@ -754,9 +755,9 @@ function App() {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="p-5 bg-white rounded-b-lg shadow-md mt-1"
+                    className="p-3 sm:p-4 md:p-5 bg-white rounded-b-lg shadow-md mt-1"
                   >
-                    <p className="text-gray-600">{faq.answer}</p>
+                    <p className="text-gray-600 text-xs sm:text-sm md:text-base">{faq.answer}</p>
                   </motion.div>
                 )}
               </motion.div>
@@ -764,100 +765,103 @@ function App() {
           </div>
         </div>
       </section>
+      
       {/* Global Presence */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 sm:mb-12 md:mb-16">
             Our Global Presence
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-lg text-center"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center"
             >
-              <div className="bg-violet-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-8 h-8 text-violet-600" />
+              <div className="bg-violet-100 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-violet-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">North America</h3>
-              <p className="text-gray-600">New York, San Francisco, Toronto, Mexico City</p>
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">North America</h3>
+              <p className="text-gray-600 text-xs sm:text-sm md:text-base">New York, San Francisco, Toronto, Mexico City</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-lg text-center"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center"
             >
-              <div className="bg-violet-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-8 h-8 text-violet-600" />
+              <div className="bg-violet-100 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-violet-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Europe</h3>
-              <p className="text-gray-600">London, Berlin, Paris, Amsterdam</p>
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Europe</h3>
+              <p className="text-gray-600 text-xs sm:text-sm md:text-base">London, Berlin, Paris, Amsterdam</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-lg text-center"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center"
             >
-              <div className="bg-violet-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-8 h-8 text-violet-600" />
+              <div className="bg-violet-100 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-violet-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Asia Pacific</h3>
-              <p className="text-gray-600">Singapore, Sydney, Tokyo, Bangalore</p>
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Asia Pacific</h3>
+              <p className="text-gray-600 text-xs sm:text-sm md:text-base">Singapore, Sydney, Tokyo, Bangalore</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-lg text-center"
+              className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center"
             >
-              <div className="bg-violet-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Globe className="w-8 h-8 text-violet-600" />
+              <div className="bg-violet-100 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                <Globe className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-violet-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Online</h3>
-              <p className="text-gray-600">Serving students in 150+ countries worldwide</p>
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Online</h3>
+              <p className="text-gray-600 text-xs sm:text-sm md:text-base">Serving students in 150+ countries worldwide</p>
             </motion.div>
           </div>
         </div>
       </section>
+      
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-violet-600 to-indigo-600">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-violet-600 to-indigo-600">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 md:mb-8">
             Ready to Take the Next Step?
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-6 sm:mb-8 max-w-2xl mx-auto">
             Join thousands of successful professionals who have transformed their careers with AceLevelUp.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-white text-violet-600 font-bold text-lg rounded-lg hover:bg-gray-100 transition-colors duration-300">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <button className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-white text-violet-600 font-bold text-sm sm:text-base md:text-lg rounded-lg hover:bg-gray-100 transition-colors duration-300">
               Start Learning Now
             </button>
-            <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold text-lg rounded-lg hover:bg-white/10 transition-colors duration-300">
+            <button className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-transparent border-2 border-white text-white font-bold text-sm sm:text-base md:text-lg rounded-lg hover:bg-white/10 transition-colors duration-300">
               Schedule a Demo
             </button>
           </div>
         </div>
       </section>
+      
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-10 px-6">
+      <footer className="bg-gray-900 text-white py-8 sm:py-10 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="border-b border-gray-700 pb-6">
-            <p className="text-center text-sm">
+          <div className="border-b border-gray-700 pb-4 sm:pb-6">
+            <p className="text-center text-xs sm:text-sm">
               Top companies choose <span className="text-violet-400 font-semibold">AceLevelUp</span> to build
               in-demand career skills.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 py-6 sm:py-8">
             <div>
-              <h3 className="font-semibold mb-3">Certifications</h3>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <h3 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Certifications</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">AWS</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Microsoft</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Google Cloud</li>
@@ -865,8 +869,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Development</h3>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <h3 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Development</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Web Development</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Mobile Apps</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Game Development</li>
@@ -874,8 +878,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Business</h3>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <h3 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Business</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Marketing</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Analytics</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Management</li>
@@ -883,8 +887,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Company</h3>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <h3 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Company</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">About Us</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Careers</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Blog</li>
@@ -892,8 +896,8 @@ function App() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Legal</h3>
-              <ul className="space-y-2 text-sm text-gray-300">
+              <h3 className="font-semibold mb-2 sm:mb-3 text-sm sm:text-base">Legal</h3>
+              <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-300">
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Terms</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Privacy</li>
                 <li className="hover:text-violet-300 cursor-pointer transition-colors">Cookies</li>
@@ -901,9 +905,9 @@ function App() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+          <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row justify-between items-center text-xs sm:text-sm text-gray-400">
             <p>© 2025 AceLevelUp, Inc. All rights reserved.</p>
-            <div className="flex space-x-4 mt-2 md:mt-0">
+            <div className="flex space-x-2 sm:space-x-4 mt-2 md:mt-0">
               <span className="hover:text-violet-300 cursor-pointer transition-colors">Cookie Settings</span>
               <span className="flex items-center space-x-1">
                 <span>🌍</span> <span>English</span>
@@ -915,15 +919,16 @@ function App() {
     </div>
   );
 }
+
 function FeatureCard({ icon, title, description }) {
   return (
     <motion.div
       whileHover={{ y: -5 }}
-      className="bg-white p-8 rounded-2xl shadow-lg"
+      className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg"
     >
       {icon}
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">{title}</h3>
+      <p className="text-xs sm:text-sm md:text-base text-gray-600">{description}</p>
     </motion.div>
   );
 }
@@ -932,14 +937,14 @@ function ProcessCard({ icon: Icon, step, title, description }) {
   return (
     <motion.div
       whileHover={{ y: -5 }}
-      className="bg-white p-8 rounded-2xl shadow-lg relative"
+      className="bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg relative"
     >
-      <div className="absolute top-4 right-4 w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold">
+      <div className="absolute top-2 sm:top-3 md:top-4 right-2 sm:right-3 md:right-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm">
         {step}
       </div>
-      <Icon className="w-12 h-12 text-violet-600 mb-4" />
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <Icon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-violet-600 mb-3 sm:mb-4" />
+      <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">{title}</h3>
+      <p className="text-xs sm:text-sm md:text-base text-gray-600">{description}</p>
     </motion.div>
   );
 }

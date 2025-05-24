@@ -21,9 +21,6 @@ import {
   SidebarSeparator
 } from "@/app/components/ui/sidebar"
 import DashboardCard from "../dash/DashboardCard";
-
-
-
 import  UserProfile  from "../dash/UserProfile"
 import  WebinarList  from "../dash/WebinarList"
 import  Header  from "../dash/Header"

@@ -14,7 +14,7 @@ import {
   Calendar,
   X,
 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "../../lib/utils"
 import Link from "next/link"
 import { Menu } from "lucide-react"
 import { useRouter } from "next/navigation"
